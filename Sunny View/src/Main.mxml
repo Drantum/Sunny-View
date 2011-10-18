@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
-<s:WindowedApplication xmlns:fx="http://ns.adobe.com/mxml/2009" 
-					   xmlns:s="library://ns.adobe.com/flex/spark" 
+<s:WindowedApplication xmlns:fx="http://ns.adobe.com/mxml/2009"
+					   xmlns:s="library://ns.adobe.com/flex/spark"
 					   xmlns:mx="library://ns.adobe.com/flex/mx"
-					   height="100%" width="100%">
+					   xmlns:components="components.*"
+					   width="100%" height="100%" preloaderChromeColor="#FFFFFF">
 	<fx:Declarations>
 		<!-- Platzieren Sie nichtvisuelle Elemente (z. B. Dienste, Wertobjekte) hier -->
 	</fx:Declarations>
@@ -15,26 +16,54 @@
 		<s:TabBar id="tabs" left="8" y="2" dataProvider="{vs}"/>
 		<mx:ViewStack id="vs" width="100%" height="100%" y="23">
 			<s:NavigatorContent label="Contact Info"  width="100%" height="100%">
-				<s:BorderContainer width="100%" height="100%" borderWeight="2" cornerRadius="3" dropShadowVisible="true">
+				<s:BorderContainer width="100%" height="100%" borderColor="#FFFFFF"
+								   borderVisible="true" borderWeight="2" cornerRadius="3"
+								   dropShadowVisible="true">
 					<s:backgroundFill>
 						<s:LinearGradient rotation="90">
 							<s:GradientEntry color="0xE2E2E2" />
 							<s:GradientEntry color="0x323232" />
 						</s:LinearGradient>
 					</s:backgroundFill>
+					
+					<components:currentStatus wechselrichterName="West-Dach 1"
+											  pac="0.36 kW"
+											  eHeute="2531 kWh"
+											  eTotal="14500 kWh"
+											  x="6" y="9">
+					</components:currentStatus>
+					
 				</s:BorderContainer>
+			</s:NavigatorContent>
+			
+			<s:NavigatorContent label="Diagramme" width="100%" height="100%" >
+				<s:BorderContainer width="100%" height="100%" borderWeight="2" 
+								   cornerRadius="3" dropShadowVisible="true">
+					<mx:ColumnChart id="columnchart1" x="103" y="10">
+						<mx:series>
+							<mx:ColumnSeries displayName="Series 1" yField=""/>
+						</mx:series>
+					</mx:ColumnChart>
+					<mx:Legend dataProvider="{columnchart1}"/>
+				</s:BorderContainer>
+				
 			</s:NavigatorContent>
 			<s:NavigatorContent label="Einstellungen" width="100%" height="100%" >
 				<s:BorderContainer width="100%" height="100%" borderWeight="2" 
 								   cornerRadius="3" dropShadowVisible="true">
-					<s:backgroundFill>
-						<s:LinearGradient rotation="90">
-							<s:GradientEntry color="0xE2E2E2" />
-							<s:GradientEntry color="0x323232" />
-						</s:LinearGradient>
-					</s:backgroundFill>
-					<s:Label text="Text Input:"/>
-					<s:TextInput id="txt" x="14" y="10" maxWidth="150"/> 
+					<s:Form x="38" y="29">
+						<s:FormItem label="Anlagenname">
+							<s:TextInput/>
+						</s:FormItem>
+						<s:FormItem label="IP der Webbox">
+							<s:TextInput/>
+						</s:FormItem>
+					</s:Form>
+					<s:Form x="38" y="169">
+						<s:FormItem label="Wechselrichter Bennenen">
+							<mx:Tree></mx:Tree>
+						</s:FormItem>
+					</s:Form>
 				</s:BorderContainer>
 				
 			</s:NavigatorContent>
